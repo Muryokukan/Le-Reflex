@@ -56,3 +56,6 @@
 
 # IDE configuration
 .vscode
+
+# Generated files
+/var/tailwind
