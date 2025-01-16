@@ -1,5 +1,10 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
 {% block content %}
-	<h1 class="m-4 text-center">Dashboard - Le Reflex</h1>
+	<div class="mt-5">
+		<h1 class="mb-4 display-5 fw-bold text-center">Dashboard - Le Reflex</h1>
+		<div class="d-flex flex-wrap gap-3">
+			{{ include("/admin/card/_unread_count_contact_message.html.twig", {"unread_messages_count": unread_messages_count}) }}
+		</div>
+	</div>
 {% endblock %}
