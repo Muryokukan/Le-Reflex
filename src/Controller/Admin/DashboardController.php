@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Article;
 use App\Entity\ArticleCategory;
+use App\Entity\ContactMessage;
+use App\Repository\ContactMessageRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -14,10 +16,19 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[IsGranted("ROLE_USER")]
 class DashboardController extends AbstractDashboardController
 {
+    public function __construct(
+        private ContactMessageRepository $contactMessageRepository
+    ) {
+    }
+
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        return $this->render('admin/dashboard.html.twig', []);
+        $unreadCount = $this->contactMessageRepository->countUnread();
+
+        return $this->render('admin/dashboard.html.twig', [
+            'unread_messages_count' => $unreadCount,
+        ]);
     }
 
     public function configureDashboard(): Dashboard
@@ -33,6 +44,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Gestion du menu');
         yield MenuItem::linkToCrud('Articles', 'fa-solid fa-burger', Article::class);
         yield MenuItem::linkToCrud('Catégories', 'fa-solid fa-tag', ArticleCategory::class);
+        yield MenuItem::section('Contacts');
+        yield MenuItem::linkToCrud('Messages de contact', 'fa fa-envelope', ContactMessage::class);
         yield MenuItem::section('Autre');
         yield MenuItem::linkToUrl('Page Facebook', 'fa-brands fa-facebook', 'https://www.facebook.com/LeReflexBarRestaurant/')
             ->setLinkTarget('_blank');
