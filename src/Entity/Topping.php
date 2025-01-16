@@ -2,13 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\ToppingRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ToppingRepository::class)]
+#[ORM\Entity]
 class Topping
 {
     #[ORM\Id]
@@ -20,19 +17,14 @@ class Topping
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $price = null;
+    private ?float $additionalPrice = null;
 
-    /**
-     * @var Collection<int, Pizza>
-     */
-    #[ORM\ManyToMany(targetEntity: Pizza::class, mappedBy: 'toppings')]
-    private Collection $pizzas;
-
-    public function __construct()
+    public function __toString(): string
     {
-        $this->pizzas = new ArrayCollection();
+        return $this->name ?? '';
     }
 
+    // Getters and setters
     public function getId(): ?int
     {
         return $this->id;
@@ -43,49 +35,20 @@ class Topping
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
-    public function getPrice(): ?string
+    public function getAdditionalPrice(): ?float
     {
-        return $this->price;
+        return $this->additionalPrice;
     }
-
-    public function setPrice(string $price): static
+    
+    public function setAdditionalPrice(float $additionalPrice): self
     {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Pizza>
-     */
-    public function getPizzas(): Collection
-    {
-        return $this->pizzas;
-    }
-
-    public function addPizza(Pizza $pizza): static
-    {
-        if (!$this->pizzas->contains($pizza)) {
-            $this->pizzas->add($pizza);
-            $pizza->addTopping($this);
-        }
-
-        return $this;
-    }
-
-    public function removePizza(Pizza $pizza): static
-    {
-        if ($this->pizzas->removeElement($pizza)) {
-            $pizza->removeTopping($this);
-        }
-
+        $this->additionalPrice = $additionalPrice;
         return $this;
     }
 }

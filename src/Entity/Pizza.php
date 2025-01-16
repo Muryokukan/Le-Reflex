@@ -2,13 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\PizzaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PizzaRepository::class)]
+#[ORM\Entity]
 class Pizza
 {
     #[ORM\Id]
@@ -17,21 +16,18 @@ class Pizza
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Pizza = null;
+    private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $price = null;
+    private ?float $price = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $thumbnail = null;
+    private ?string $imageFilename = null;
 
-    /**
-     * @var Collection<int, Topping>
-     */
-    #[ORM\ManyToMany(targetEntity: Topping::class, inversedBy: 'pizzas')]
+    #[ORM\ManyToMany(targetEntity: Topping::class)]
     private Collection $toppings;
 
     public function __construct()
@@ -44,15 +40,14 @@ class Pizza
         return $this->id;
     }
 
-    public function getPizza(): ?string
+    public function getName(): ?string
     {
-        return $this->Pizza;
+        return $this->name;
     }
 
-    public function setPizza(string $Pizza): static
+    public function setName(string $name): self
     {
-        $this->Pizza = $Pizza;
-
+        $this->name = $name;
         return $this;
     }
 
@@ -61,58 +56,51 @@ class Pizza
         return $this->description;
     }
 
-    public function setDescription(?string $description): static
+    public function setDescription(?string $description): self
     {
-        $this->description = $description;
-
+        $this->description = strip_tags($description);
+    
         return $this;
     }
 
-    public function getPrice(): ?string
+    public function getPrice(): ?float
     {
         return $this->price;
     }
 
-    public function setPrice(string $price): static
+    public function setPrice(float $price): self
     {
         $this->price = $price;
-
         return $this;
     }
 
-    public function getThumbnail(): ?string
+    public function getImageFilename(): ?string
     {
-        return $this->thumbnail;
+        return $this->imageFilename;
     }
 
-    public function setThumbnail(?string $thumbnail): static
+    public function setImageFilename(?string $imageFilename): self
     {
-        $this->thumbnail = $thumbnail;
-
+        $this->imageFilename = $imageFilename;
         return $this;
     }
 
-    /**
-     * @return Collection<int, Topping>
-     */
     public function getToppings(): Collection
     {
         return $this->toppings;
     }
 
-    public function addTopping(Topping $topping): static
+    public function addTopping(Topping $topping): self
     {
         if (!$this->toppings->contains($topping)) {
-            $this->toppings->add($topping);
+            $this->toppings[] = $topping;
         }
-
         return $this;
     }
 
-    public function removeTopping(Topping $topping): static
+    public function removeTopping(Topping $topping): self
     {
         $this->toppings->removeElement($topping);
-
         return $this;
     }
 }
