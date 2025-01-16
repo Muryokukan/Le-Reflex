@@ -2,6 +2,8 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Article;
+use App\Entity\ArticleCategory;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -26,9 +28,13 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+        yield MenuItem::linkToRoute('Retour au site', 'fa fa-arrow-left', 'app_home');
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::section('Gestion du menu');
+        yield MenuItem::linkToCrud('Articles', 'fa-solid fa-burger', Article::class);
+        yield MenuItem::linkToCrud('Catégories', 'fa-solid fa-tag', ArticleCategory::class);
+        yield MenuItem::section('Autre');
         yield MenuItem::linkToUrl('Page Facebook', 'fa-brands fa-facebook', 'https://www.facebook.com/LeReflexBarRestaurant/')
             ->setLinkTarget('_blank');
-        yield MenuItem::linkToRoute('Retour au site', 'fa fa-arrow-left', 'app_home');
     }
 }
