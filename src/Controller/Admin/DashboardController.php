@@ -12,6 +12,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use App\Entity\Topping;
+use App\Entity\Pizza;
 
 #[IsGranted("ROLE_USER")]
 class DashboardController extends AbstractDashboardController
@@ -49,5 +51,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Autre');
         yield MenuItem::linkToUrl('Page Facebook', 'fa-brands fa-facebook', 'https://www.facebook.com/LeReflexBarRestaurant/')
             ->setLinkTarget('_blank');
+        yield MenuItem::section('Restaurant');
+        yield MenuItem::linkToCrud('Pizzas', 'fa fa-pizza-slice', Pizza::class);
+        yield MenuItem::linkToCrud('Suppléments', 'fa fa-plus-circle', Topping::class);
     }
 }
