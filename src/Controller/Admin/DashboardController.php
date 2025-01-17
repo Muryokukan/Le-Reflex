@@ -14,6 +14,8 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use App\Entity\Topping;
 use App\Entity\Pizza;
+use App\Entity\Room;
+use App\Entity\RoomOption;
 
 #[IsGranted("ROLE_USER")]
 class DashboardController extends AbstractDashboardController
@@ -43,16 +45,19 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToRoute('Retour au site', 'fa fa-arrow-left', 'app_home');
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::section('Gestion du menu');
-        yield MenuItem::linkToCrud('Articles', 'fa-solid fa-burger', Article::class);
-        yield MenuItem::linkToCrud('Catégories', 'fa-solid fa-tag', ArticleCategory::class);
         yield MenuItem::section('Contacts');
         yield MenuItem::linkToCrud('Messages de contact', 'fa fa-envelope', ContactMessage::class);
-        yield MenuItem::section('Autre');
-        yield MenuItem::linkToUrl('Page Facebook', 'fa-brands fa-facebook', 'https://www.facebook.com/LeReflexBarRestaurant/')
-            ->setLinkTarget('_blank');
+        yield MenuItem::section('Gestion des salles');
+        yield MenuItem::linkToCrud('Salles', 'fa-solid fa-location-dot', Room::class);
+        yield MenuItem::linkToCrud('Options', 'fa fa-plus-circle', RoomOption::class);
         yield MenuItem::section('Restaurant');
         yield MenuItem::linkToCrud('Pizzas', 'fa fa-pizza-slice', Pizza::class);
         yield MenuItem::linkToCrud('Suppléments', 'fa fa-plus-circle', Topping::class);
+        yield MenuItem::section('Gestion du menu');
+        yield MenuItem::linkToCrud('Articles', 'fa-solid fa-burger', Article::class);
+        yield MenuItem::linkToCrud('Catégories', 'fa-solid fa-tag', ArticleCategory::class);
+        yield MenuItem::section('Autre');
+        yield MenuItem::linkToUrl('Page Facebook', 'fa-brands fa-facebook', 'https://www.facebook.com/LeReflexBarRestaurant/')
+            ->setLinkTarget('_blank');
     }
 }
