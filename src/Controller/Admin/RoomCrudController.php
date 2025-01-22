@@ -28,6 +28,10 @@ class RoomCrudController extends AbstractCrudController
                     'by_reference' => false,
                     'choice_label' => 'name',
                 ])
+                ->onlyOnForms(),
+            TextField::new('optionsList', 'Options')
+                ->onlyOnIndex()
+                ->renderAsHtml(),
         ];
     }
 

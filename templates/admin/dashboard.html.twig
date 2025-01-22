@@ -5,6 +5,8 @@
 		<h1 class="mb-4 display-5 fw-bold text-center">Dashboard - Le Reflex</h1>
 		<div class="d-flex flex-wrap gap-3">
 			{{ include("/admin/card/_unread_count_contact_message.html.twig", {"unread_messages_count": unread_messages_count}) }}
+			{{ include("/admin/card/_waiting_date_validation_room_reservation_count.html.twig", {"count": countReservationsByStatus['waiting_date_confirmation']|default(0)}) }}
+			{{ include("/admin/card/_waiting_payment_room_reservation_count.html.twig", {"count": countReservationsByStatus['waiting_payment']|default(0)}) }}
 		</div>
 	</div>
 {% endblock %}

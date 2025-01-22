@@ -1,5 +1,7 @@
-import { startStimulusApp } from '@symfony/stimulus-bundle';
+import { startStimulusApp } from "@symfony/stimulus-bundle";
+import RoomReservationDateController from "./controllers/room_reservation_date_controller.js";
+import RoomReservationOptionsController from "./controllers/room_reservation_options_controller.js";
 
 const app = startStimulusApp();
-// register any custom, 3rd party controllers here
-// app.register('some_controller_name', SomeImportedController);
+app.register("room-reservation-calendar", RoomReservationDateController);
+app.register("room-reservation-options", RoomReservationOptionsController);
