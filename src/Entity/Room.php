@@ -31,9 +31,16 @@ class Room
     #[ORM\ManyToMany(targetEntity: RoomOption::class, mappedBy: 'rooms')]
     private Collection $roomOptions;
 
+    /**
+     * @var Collection<int, RoomReservation>
+     */
+    #[ORM\ManyToMany(targetEntity: RoomReservation::class, mappedBy: 'rooms')]
+    private Collection $roomReservations;
+
     public function __construct()
     {
         $this->roomOptions = new ArrayCollection();
+        $this->roomReservations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -99,6 +106,43 @@ class Room
     {
         if ($this->roomOptions->removeElement($roomOption)) {
             $roomOption->removeRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function getOptionsList(): string
+    {
+        return implode(
+            '<br>',
+            $this->roomOptions->map(
+                fn($option) => $option->getName()
+            )->toArray()
+        );
+    }
+
+    /**
+     * @return Collection<int, RoomReservation>
+     */
+    public function getRoomReservations(): Collection
+    {
+        return $this->roomReservations;
+    }
+
+    public function addRoomReservation(RoomReservation $roomReservation): static
+    {
+        if (!$this->roomReservations->contains($roomReservation)) {
+            $this->roomReservations->add($roomReservation);
+            $roomReservation->addRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRoomReservation(RoomReservation $roomReservation): static
+    {
+        if ($this->roomReservations->removeElement($roomReservation)) {
+            $roomReservation->removeRoom($this);
         }
 
         return $this;
