@@ -14,5 +14,6 @@
 
 # IDE configuration
 /.vscode/
-.env
-/public/uploads/pizzas
+
+# Uploaded files
+/public/uploads/
