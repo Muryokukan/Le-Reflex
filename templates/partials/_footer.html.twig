@@ -1,8 +1,47 @@
-<footer class="bg-gray-100 text-gray-800 text-center py-4 text-sm">
-	<p>&copy; 2025 Le Reflex</p>
-	<nav class="mt-2">
-		<a href="{{ path('app_contact') }}" class="text-gray-800 hover:text-gray-600 mx-2">Contact</a>
-		<a href="" class="text-gray-800 hover:text-gray-600 mx-2">À propos</a>
-		<a href="" class="text-gray-800 hover:text-gray-600 mx-2">Conditions d'utilisation</a>
-	</nav>
-</footer>
+<footer class="bg-gray-700 text-gray-200 py-8">
+	<div class="container mx-auto px-4">
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+			<div class="text-sm text-center">
+				<h5 class="text-lg mb-2 text-[#bd801f]">Horaires</h5>
+				<h6 class="text-md italic">Sur place et à emporter</h6>
+				<p>Du Lundi au Jeudi de 12h à 14h</p>
+				<h6 class="text-md mt-2 italic">Livraison</h6>
+				<p>Tous les jours de 9h à 17h</p>
+			</div>
+
+			<div class="text-sm text-center">
+				<h5 class="text-lg mb-2 text-[#bd801f]">Localisation</h5>
+				<p class="text-gray-200">206 Rue de l'Yser</p>
+				<p class="text-gray-200">59200 Tourcoing</p>
+				<p class="mt-1">
+					<a href="https://www.google.com/search?q=206+Rue+de+l%27Yser+59200+Tourcoing" target="_blank" class="italic text-gray-200 hover:text-[#bd801f] underline">Afficher l'adresse</a>
+				</p>
+			</div>
+
+			<div class="text-sm text-center">
+				<h5 class="text-lg mb-2 text-[#bd801f]">Contact</h5>
+				<div class="flex justify-center gap-4 mb-1">
+					<div>
+						<p class="text-gray-200">
+							<a href="tel:03 20 94 44 62" class="italic hover:text-[#bd801f] underline">03 20 94 44 62</a>
+						</p>
+						<p class="text-gray-200">
+							<a href="mailto:lereflex@hotmail.com" class="italic hover:text-[#bd801f] underline">lereflex@hotmail.com</a>
+						</p>
+					</div>
+					<p class="flex justify-center items-center">
+						<a href="https://www.facebook.com/LeReflexBarRestaurant/" target="_blank" class="text-gray-200 hover:text-[#bd801f]">
+							<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 512" class="w-6 h-6" fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z"/></svg>
+						</a>
+					</p>
+				</div>
+
+				<p class="text-gray-200">
+					<a href="{{ path('app_contact') }}" class="hover:text-[#bd801f] underline">Formulaire de contact</a>
+				</p>
+			</p>
+		</div>
+
+	</div>
+</div></footer>
