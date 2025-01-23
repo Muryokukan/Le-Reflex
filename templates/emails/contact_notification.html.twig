@@ -1,0 +1,69 @@
+<div id="body">
+	<div class="container">
+		<div class="header">
+			<h1>Nouveau message de contact de
+				{{ contact.fullname }}</h1>
+			<p>Reçu le
+				{{ contact.submittedAt|date('d/m/Y à H:i') }}</p>
+		</div>
+
+		<div class="message-details">
+			<h2>Informations de contact</h2>
+			<ul>
+				<li>
+					<strong>Nom complet :</strong>
+					{{ contact.fullname }}
+				</li>
+				<li>
+					<strong>Email :</strong>
+					<a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+				</li>
+				{% if contact.phone %}
+					<li>
+						<strong>Téléphone :</strong>
+						<a href="tel:{{ contact.phone }}">{{ contact.phone }}</a>
+					</li>
+				{% endif %}
+				<li>
+					<strong>Sujet :</strong>
+					{{ contact.subject }}
+				</li>
+			</ul>
+		</div>
+
+		<div class="message-content">
+			<h2>Message</h2>
+			<p>{{ contact.message|nl2br }}</p>
+		</div>
+	</div>
+</div>
+
+<style>
+	#body {
+		font-family: Arial, sans-serif;
+		line-height: 1.5;
+		color: #333;
+	}
+
+	.container {
+		max-width: 600px;
+		margin: 0 auto;
+		padding: 20px;
+	}
+
+	.header {
+		background-color: #f8f9fa;
+		padding: 20px;
+		margin-bottom: 20px;
+	}
+
+	.message-details {
+		margin-bottom: 20px;
+	}
+
+	.message-content {
+		background-color: #f8f9fa;
+		padding: 20px;
+		border-radius: 5px;
+	}
+</style>
