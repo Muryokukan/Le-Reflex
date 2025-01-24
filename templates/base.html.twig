@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block meta_tags %}{% endblock %}
         <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
-		<script src="{{ asset('js/fullcalendar_6.1.15.global.min.js') }}"></script>
 		<title>{% block title %}{% endblock %}Le Reflex</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
@@ -12,9 +12,10 @@
 
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
+			<script src="{{ asset('js/fullcalendar_6.1.15.global.min.js') }}"></script>
         {% endblock %}
     </head>
-	<body class="min-h-screen flex flex-col">
+	<body class="min-h-screen flex flex-col overflow-x-hidden">
 		<div class="flex-grow">
 			{% include 'partials/_header.html.twig' %}
 			{% block body %}{% endblock %}
