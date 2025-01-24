@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block meta_tags %}
+    <meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% block title %}Accueil (QR code) - 
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			const QRCodeAnchor = document.getElementById('QRCodeAnchor');
+			if (QRCodeAnchor) QRCodeAnchor.scrollIntoView();
+		});
+	</script>
+{% endblock %}
+
+{% block body %}
+	<div id="QRCodeAnchor" style="width: 100vw; height: 100vh;" class="flex-col md:flex md:h-screen">
+		<div class="h-1/2 relative">
+			<div class="absolute top-0 left-0 w-full h-full flex flex-wrap justify-center">
+				<img src="{{ asset('images/pizza1.jpg') }}" class="w-1/2 h-1/2 object-cover" alt="Pizza ">
+				<img src="{{ asset('images/pizza2.jpg') }}" class="w-1/2 h-1/2 object-cover" alt="Pizza ">
+				<img src="{{ asset('images/pizza3.jpg') }}" class="w-1/2 h-1/2 object-cover" alt="Pizza ">
+				<img src="{{ asset('images/pizza4.jpg') }}" class="w-1/2 h-1/2 object-cover" alt="Pizza ">
+			</div>
+			<a href="{{ path('app_pizza_menu') }}" class="text-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#bd801f] hover:bg-[#8e6018] text-white text-2xl font-bold px-4 py-2 rounded">Commande de pizzas</a>
+		</div>
+		<div class="h-1/2 relative">
+			<div class="absolute top-0 left-0 w-full h-full flex-col md:flex flex-wrap justify-center">
+				<img src="{{ asset('images/restaurant1.jpg') }}" class="w-full md:w-1/2 h-1/2 md:h-full object-cover" alt="Restaurant">
+				<img src="{{ asset('images/bar1.jpg') }}" class="w-full md:w-1/2 h-1/2 md:h-full object-cover" alt="Bar">
+			</div>
+			<a href="{{ path('app_room_reservation_index') }}" class="text-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#bd801f] hover:bg-[#8e6018] text-white text-2xl font-bold px-4 py-2 rounded">Réservation de salles</a>
+		</div>
+	</div>
+{% endblock %}

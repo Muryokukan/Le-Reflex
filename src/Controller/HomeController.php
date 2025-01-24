@@ -13,4 +13,10 @@ final class HomeController extends AbstractController{
         return $this->render('home/index.html.twig', [
         ]);
     }
+
+    #[Route('/qrcode', name: 'app_qrcode')]
+    public function qrcode(): Response
+    {
+        return $this->render('home/qrcode.html.twig');
+    }
 }
