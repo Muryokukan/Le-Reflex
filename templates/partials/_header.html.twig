@@ -1,6 +1,5 @@
-<header class="bg-gray-700 text-gray-200">
-	<nav
-		class="max-w-5xl flex items-center justify-between mx-auto p-4">
+<header class="bg-gray-700 text-gray-200" data-controller="header-menu" data-action="click@window->header-menu#clickOutside">
+	<nav class="max-w-5xl flex items-center justify-between mx-auto p-4">
 		<div class="flex-shrink-0">
 			<a href="{{ path('app_home') }}">
 				<img src="/images/logo.png" alt="Logo Le Reflex" class="h-20 w-auto">
@@ -11,12 +10,12 @@
 			<a href="{{ path('app_home') }}" class="hover:text-[#bd801f]">Accueil</a>
 			<a href="" class="hover:text-[#bd801f]">Évènements</a>
 			<a href="" class="hover:text-[#bd801f]">Menu</a>
-			<a href="" class="hover:text-[#bd801f]">Pizza</a>
+			<a href="{{ path('app_pizza_menu') }}" class="hover:text-[#bd801f]">Pizza</a>
 			<a href="{{ path('app_room_reservation_index') }}" class="hover:text-[#bd801f]">Location de salle</a>
 		</div>
 
 		<div class="md:hidden">
-			<button id="mobile-menu-toggle" class="text-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500">
+			<button data-action="header-menu#toggle" class="text-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500">
 				<svg class="h-10 w-10" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
 				</svg>
@@ -24,11 +23,11 @@
 		</div>
 	</nav>
 
-	<div id="mobile-menu" class="hidden md:hidden flex-col bg-gray-700 text-gray-200 text-3xl text-center space-y-4 pb-8 px-4">
+	<div data-header-menu-target="mobileMenu" class="hidden md:hidden flex-col bg-gray-700 text-gray-200 text-3xl text-center space-y-4 pb-8 px-4">
 		<a href="{{ path('app_home') }}" class="hover:text-[#bd801f]">Accueil</a>
 		<a href="#" class="hover:text-[#bd801f]">Évènements</a>
 		<a href="#" class="hover:text-[#bd801f]">Menu</a>
-		<a href="#" class="hover:text-[#bd801f]">Pizza</a>
+		<a href="{{ path('app_pizza_menu') }}" class="hover:text-[#bd801f]">Pizza</a>
 		<a href="{{ path('app_room_reservation_index') }}" class="hover:text-[#bd801f]">Location de salle</a>
 	</div>
 </header>
