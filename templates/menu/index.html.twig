@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Menu -
+{% endblock %}
+
+{% block body %}
+	<div class="container lg:contain-none max-w-[900px] mx-auto px-4 py-8">
+		<h1 class="text-5xl font-bold text-[#bd801f] mb-6 text-center">Menu</h1>
+		<div class="space-y-4">
+			{% for menuImage in menu_images %}
+				<div class="w-full">
+					<img src="{{ vich_uploader_asset(menuImage) }}" alt="Image de menu {{ loop.index }}" class="w-full rounded-lg shadow-2xl">
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

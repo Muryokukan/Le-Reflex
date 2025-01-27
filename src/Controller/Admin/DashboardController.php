@@ -2,9 +2,10 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Article;
-use App\Entity\ArticleCategory;
+// use App\Entity\Article;
+// use App\Entity\ArticleCategory;
 use App\Entity\ContactMessage;
+use App\Entity\MenuImage;
 use App\Repository\ContactMessageRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -68,8 +69,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Suppléments', 'fa fa-plus-circle', Topping::class);
 
         yield MenuItem::section('Gestion du menu');
-        yield MenuItem::linkToCrud('Articles', 'fa-solid fa-burger', Article::class);
-        yield MenuItem::linkToCrud('Catégories', 'fa-solid fa-tag', ArticleCategory::class);
+        yield MenuItem::linkToCrud('Images du menu', 'fas fa-images', MenuImage::class);
+        // yield MenuItem::linkToCrud('Articles', 'fa-solid fa-burger', Article::class);
+        // yield MenuItem::linkToCrud('Catégories', 'fa-solid fa-tag', ArticleCategory::class);
 
         yield MenuItem::section('Autre');
         yield MenuItem::linkToUrl('Page Facebook', 'fa-brands fa-facebook', 'https://www.facebook.com/LeReflexBarRestaurant/')
