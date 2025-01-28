@@ -1,8 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+IN:wght@100..400&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-image: url("/images/body-bg.jpg");
+  background-size: contain;
+  background-repeat: repeat-y;
+}
+
 @layer components {
+  .title-font {
+    @apply font-playwrite-in
+  }
+
   .form-input-label {
     @apply block text-sm font-medium text-gray-700 mb-1;
   }

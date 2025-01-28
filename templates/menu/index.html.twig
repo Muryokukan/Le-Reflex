@@ -5,11 +5,11 @@
 
 {% block body %}
 	<div class="container lg:contain-none max-w-[900px] mx-auto px-4 py-8">
-		<h1 class="text-5xl font-bold text-[#bd801f] mb-6 text-center">Menu</h1>
-		<div class="space-y-4">
+		<h1 class="text-5xl font-bold text-[#bd801f] mb-6 text-center title-font">Menu</h1>
+		<div class="space-y-6">
 			{% for menuImage in menu_images %}
 				<div class="w-full">
-					<img src="{{ vich_uploader_asset(menuImage) }}" alt="Image de menu {{ loop.index }}" class="w-full rounded-lg shadow-2xl">
+					<img src="{{ vich_uploader_asset(menuImage) }}" alt="Image de menu {{ loop.index }}" class="w-full rounded-lg shadow-md shadow-slate-50">
 				</div>
 			{% endfor %}
 		</div>

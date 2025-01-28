@@ -1,9 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Réservation de salles - {% endblock %}
+{% block title %}Réservation de salles -{% endblock %}
 
 {% block body %}
-	<div data-controller="room-reservation-calendar room-reservation-options" data-room-reservation-calendar-reservations-value="{{ reservations }}" data-room-reservation-calendar-reservation-date-id-value="{{ form.reservationDate.vars.id }}" class="w-full md:container mx-auto p-0 md:p-4">
+	<div data-controller="room-reservation-calendar room-reservation-options" data-room-reservation-calendar-reservations-value="{{ reservations }}" data-room-reservation-calendar-reservation-date-id-value="{{ form.reservationDate.vars.id }}" class="w-full md:container mx-auto px-0 md:px-4 py-8">
+
+		<h2 class="text-4xl font-bold text-[#bd801f] mb-6 text-center title-font">
+			Nos salles
+		</h2>
+
+		<section class="h-96 w-3/4 bg-white mx-auto mb-8">TODO: Présenter les salles, carousel d'images des salles et options</section>
+
+		<h2 class="text-4xl font-bold text-[#bd801f] mb-6 text-center title-font">
+			Formulaire de réservation
+		</h2>
 
 		{{ include('partials/_flash_messages.html.twig') }}
 

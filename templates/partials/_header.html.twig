@@ -1,4 +1,4 @@
-<header class="bg-gray-700 text-gray-200" data-controller="header-menu" data-action="click@window->header-menu#clickOutside">
+<header class="bg-gray-700 text-gray-200 opacity-80 hover:opacity-100 transition duration-300" data-controller="header-menu" data-action="click@window->header-menu#clickOutside">
 	<nav class="max-w-5xl flex items-center justify-between mx-auto p-4">
 		<div class="flex-shrink-0">
 			<a href="{{ path('app_home') }}">
@@ -7,11 +7,11 @@
 		</div>
 
 		<div class="hidden md:flex space-x-6 text-gray-200 text-xl">
-			<a href="{{ path('app_home') }}" class="hover:text-[#bd801f]">Accueil</a>
-			<a href="{{ path('app_event') }}" class="hover:text-[#bd801f]">Évènements</a>
-			<a href="{{ path('app_menu') }}" class="hover:text-[#bd801f]">Menu</a>
-			<a href="{{ path('app_pizza_menu') }}" class="hover:text-[#bd801f]">Pizza</a>
-			<a href="{{ path('app_room_reservation_index') }}" class="hover:text-[#bd801f]">Location de salle</a>
+			<a href="{{ path('app_home') }}" class="hover:text-[#bd801f] title-font">Accueil</a>
+			<a href="{{ path('app_event') }}" class="hover:text-[#bd801f] title-font">Évènements</a>
+			<a href="{{ path('app_menu') }}" class="hover:text-[#bd801f] title-font">Menu</a>
+			<a href="{{ path('app_pizza_menu') }}" class="hover:text-[#bd801f] title-font">Pizza</a>
+			<a href="{{ path('app_room_reservation_index') }}" class="hover:text-[#bd801f] title-font">Location de salle</a>
 		</div>
 
 		<div class="md:hidden">
