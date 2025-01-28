@@ -6,6 +6,7 @@ namespace App\Controller\Admin;
 // use App\Entity\ArticleCategory;
 use App\Entity\ContactMessage;
 use App\Entity\MenuImage;
+use App\Entity\SliderImage;
 use App\Repository\ContactMessageRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -52,6 +53,8 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToRoute('Retour au site', 'fa fa-arrow-left', 'app_home');
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+
+        yield MenuItem::linkToCrud('Images du carrousel', 'fas fa-images', SliderImage::class);
 
         yield MenuItem::section('Contacts');
         yield MenuItem::linkToCrud('Messages de contact', 'fa fa-envelope', ContactMessage::class);
