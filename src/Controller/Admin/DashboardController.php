@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 // use App\Entity\Article;
 // use App\Entity\ArticleCategory;
 use App\Entity\ContactMessage;
+use App\Entity\EventImage;
 use App\Entity\MenuImage;
 use App\Repository\ContactMessageRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -67,6 +68,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Restaurant');
         yield MenuItem::linkToCrud('Pizzas', 'fa fa-pizza-slice', Pizza::class);
         yield MenuItem::linkToCrud('Suppléments', 'fa fa-plus-circle', Topping::class);
+
+        yield MenuItem::section('Gestion des évènements');
+        yield MenuItem::linkToCrud('Images des évènements', 'fas fa-images', EventImage::class);
 
         yield MenuItem::section('Gestion du menu');
         yield MenuItem::linkToCrud('Images du menu', 'fas fa-images', MenuImage::class);
