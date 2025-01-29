@@ -5,14 +5,14 @@
 
 {% block body %}
 	<div class="max-w-2xl mx-auto px-4 py-6">
-		<h1 class="text-center text-3xl font-bold text-gray-800 mb-6">Contactez-nous</h1>
+		<h1 class="text-center text-5xl font-bold text-[#bd801f] mb-6 title-font">Contactez-nous</h1>
 
 		{{ include('partials/_flash_messages.html.twig') }}
 
 		{{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
 		<div class="space-y-4">
 			<div>
-				{{ form_label(form.fullname, 'Nom Prénom*', {'label_attr': {'class': 'form-input-label'}}) }}
+				{{ form_label(form.fullname, 'Nom Prénom*', {'label_attr': {'class': 'form-input-label text-white'}}) }}
 				{{ form_widget(form.fullname, {'attr': {'class': 'form-input', 'placeholder': 'Votre nom complet'}}) }}
 				{% for error in form.fullname.vars.errors %}
 					<p class="form-input-error">{{ error.message }}</p>
@@ -20,7 +20,7 @@
 			</div>
 
 			<div>
-				{{ form_label(form.email, 'Email*', {'label_attr': {'class': 'form-input-label'}}) }}
+				{{ form_label(form.email, 'Email*', {'label_attr': {'class': 'form-input-label text-white'}}) }}
 				{{ form_widget(form.email, {'attr': {'class': 'form-input', 'placeholder': 'votre@email.com'}}) }}
 				{% for error in form.email.vars.errors %}
 					<p class="form-input-error">{{ error.message }}</p>
@@ -28,7 +28,7 @@
 			</div>
 
 			<div>
-				{{ form_label(form.phone, 'Téléphone', {'label_attr': {'class': 'form-input-label'}}) }}
+				{{ form_label(form.phone, 'Téléphone', {'label_attr': {'class': 'form-input-label text-white'}}) }}
 				{{ form_widget(form.phone, {'attr': {'class': 'form-input', 'placeholder': 'Votre numéro de téléphone'}}) }}
 				{% for error in form.phone.vars.errors %}
 					<p class="form-input-error">{{ error.message }}</p>
@@ -36,7 +36,7 @@
 			</div>
 
 			<div>
-				{{ form_label(form.subject, 'Sujet*', {'label_attr': {'class': 'form-input-label'}}) }}
+				{{ form_label(form.subject, 'Sujet*', {'label_attr': {'class': 'form-input-label text-white'}}) }}
 				{{ form_widget(form.subject, {'attr': {'class': 'form-input', 'placeholder': 'Sujet de votre message'}}) }}
 				{% for error in form.subject.vars.errors %}
 					<p class="form-input-error">{{ error.message }}</p>
@@ -44,7 +44,7 @@
 			</div>
 
 			<div>
-				{{ form_label(form.message, 'Message*', {'label_attr': {'class': 'form-input-label'}}) }}
+				{{ form_label(form.message, 'Message*', {'label_attr': {'class': 'form-input-label text-white'}}) }}
 				{{ form_widget(form.message, {'attr': {'class': 'form-input h-32', 'placeholder': 'Votre message'}}) }}
 				{% for error in form.message.vars.errors %}
 					<p class="form-input-error">{{ error.message }}</p>
