@@ -36,6 +36,8 @@ jobs:
 
     # Installation des dépendances Composer
     - name: Install Composer dependencies
+      env:
+        APP_ENV: prod
       run: composer install --no-dev --optimize-autoloader
 
     # Compilation des assets
