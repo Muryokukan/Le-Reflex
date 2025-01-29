@@ -1,0 +1,90 @@
+name: Deploy to Production
+
+on:
+  # Déclenchement manuel
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environnement de déploiement'
+        required: true
+        default: 'deploy'
+        type: choice
+        options:
+          - deploy
+  # Déclenchement automatique
+  pull_request:
+    types: [closed]
+    branches:
+      - deploy
+
+jobs:
+  deploy:
+    # S'exécute si c'est un déclenchement manuel OU si la PR a été mergée
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    # Configuration de PHP 8.4
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.4'
+        extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql, dom, filter, gd, json
+        tools: composer:v2.8.5
+
+    # Installation des dépendances Composer
+    - name: Install Composer dependencies
+      run: composer install --no-dev --optimize-autoloader
+
+    # Compilation des assets
+    - name: Compile assets
+      run: |
+        php bin/console tailwind:build --minify
+        php bin/console asset-map:compile
+        php bin/console assets:install
+
+    # Configuration de l'environnement
+    - name: Create .env.local
+      run: |
+        echo "${{ secrets.ENV_FILE }}" > .env.local
+      
+    # Déploiement via FTP
+    - name: Deploy to FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        server-dir: ${{ secrets.FTP_SERVER_DIR }}
+        exclude: |
+          **/.git*
+          **/.git*/**
+          tests/**
+          var/**
+
+    # Chargement des fixtures
+    - name: Execute remote commands
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        port: ${{ secrets.SSH_PORT }}
+        script: |
+          cd ${{ secrets.PROJECT_PATH }}
+          php bin/console doctrine:fixtures:load --no-interaction
+
+    # Notification de déploiement réussi
+    - name: Deployment Success Notification
+      if: success()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.name,
+            body: '✅ Déploiement effectué avec succès!'
+          })
