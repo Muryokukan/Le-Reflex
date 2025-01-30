@@ -2,4 +2,99 @@
 
 {% block body %}
 	{# TODO: #}
+<div class="container mx-auto px-4 pt-16">
+    {# First Section #}
+    <div class="flex flex-wrap mx-4 my-8 bg-marble-bg bg-cover bg-no-repeat">
+        <div class="w-full md:w-1/2 p-0 flex items-stretch">
+            <img src="logowithbg.jpg" alt="Description de l'image" class="max-w-full h-full block">
+        </div>
+        <div class="w-full md:w-1/2 p-8 bg-[#0e1215] flex flex-col justify-center">
+            <h2 class="text-4xl font-bold text-gray-200 mb-4 relative before:absolute before:left-0 before:bottom-0 before:h-0.5 before:w-12 before:bg-[#283D3B] transition-all duration-300 hover:before:w-20 ">
+                Votre Événement, Notre Expertise
+            </h2>
+            <p class="text-gray-300 leading-relaxed text-lg mb-6">
+                Au cœur d'un cadre unique, LE REFLEX Bar/Restaurant vous ouvre ses portes pour des expériences culinaires mémorables et des événements sur mesure. Plongez dans une atmosphère où la gastronomie rencontre l'événementiel.
+            </p>
+            <p class="text-gray-300 leading-relaxed text-lg">
+                Que ce soit pour un dîner raffiné, un déjeuner d'affaires ou un événement privé, nous mettons tout en œuvre pour faire de chaque instant un souvenir inoubliable.
+            </p>
+        </div>
+
+    </div>
+
+    {# Second Section #}
+    <div class="flex flex-wrap mx-4 mb-8">
+        <div class="w-full md:w-1/2 p-4 bg-[#0e1215] flex flex-col justify-center md:order-1">
+           <p class="text-gray-300 leading-relaxed">
+                Come and treat yourself for your business lunches! All occasions 
+                are good to celebrate. The restaurant has a host table that opens 
+                onto the open kitchen.
+            </p>
+            <p class="text-gray-300 leading-relaxed">
+                Find yourself directly immersed in the world of service!
+            </p>
+        </div>
+       <div class="w-full md:w-1/2 p-0 flex items-stretch md:order-2">
+            <img src="bar2.jpg" alt="Food preparation" class="max-w-full h-full block">
+        </div>
+    </div>
+</div>
+
+
+
+
+    <div class="bg-[#0F1216] min-h-screen p-8">
+    <!-- Hero Section -->
+    <div class="max-w-6xl mx-auto mb-20">
+        <h1 class="text-white text-4xl font-bold mb-4">
+            Une nouvelle approche de la gastronomie
+        </h1>
+        <p class="text-gray-400 max-w-2xl mb-4">
+            Le Reflex accueil toutes vos soirée à thème
+        </p>
+        <button class="bg-white text-black px-6 py-2 rounded hover:bg-gray-100 transition">
+            Découvrir notre concept
+        </button>
+    </div>
+
+    <!-- Menu Cards -->
+    <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto mb-20">
+        <div class="bg-[#1A1F25] p-6 rounded-lg flex justify-center align-items-center">
+            
+        </div>
+        <div class="bg-[#1A1F25] p-6 rounded-lg">
+            
+        </div>
+    </div>
+
+    <!-- Experience Section -->
+    <div class="text-center mb-16">
+        <h2 class="text-white text-3xl font-bold mb-12">L'Expérience Le Reflex</h2>
+        
+        <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div class="text-center">
+                <div class="w-12 h-12 rounded-full bg-white text-black text-xl font-bold flex items-center justify-center mx-auto mb-4">
+                    1
+                </div>
+                <h3 class="text-white text-xl mb-2">Cuisine Ouverte</h3>
+                <p class="text-gray-400">Observez nos chefs à l'œuvre dans notre cuisine centrale</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-12 h-12 rounded-full bg-white text-black text-xl font-bold flex items-center justify-center mx-auto mb-4">
+                    2
+                </div>
+                <h3 class="text-white text-xl mb-2">Produits d'Exception</h3>
+                <p class="text-gray-400">Sélection rigoureuse des meilleurs producteurs locaux</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-12 h-12 rounded-full bg-white text-black text-xl font-bold flex items-center justify-center mx-auto mb-4">
+                    3
+                </div>
+                <h3 class="text-white text-xl mb-2">Service Personnalisé</h3>
+                <p class="text-gray-400">Une expérience sur mesure pour chaque convive</p>
+            </div>
+        </div>
+    </div>
 {% endblock %}
