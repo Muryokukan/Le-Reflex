@@ -1,8 +1,7 @@
 {% if field.value %}
 	<span class="badge badge-{{ field.value.value in ['waiting_date_confirmation'] ? 'warning' :
-			                                field.value.value in ['waiting_payment'] ? 'info' :
+			                                field.value.value in ['waiting_payment_confirmation'] ? 'info' :
 			                                field.value.value in ['confirmed'] ? 'success' :
-			                                field.value.value in ['refused'] ? 'danger' :
 			                                field.value.value in ['cancelled'] ? 'dark' : 'secondary' }}">
 		{{ field.value.label() }}
 	</span>
