@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 // use App\Entity\Article;
 // use App\Entity\ArticleCategory;
+
+use App\Entity\ClosurePeriod;
 use App\Entity\ContactMessage;
 use App\Entity\EventImage;
 use App\Entity\MenuImage;
@@ -63,6 +65,7 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::section('Calendrier');
         yield MenuItem::linkToCrud('Réservations de salles', 'fa-regular fa-calendar', RoomReservation::class);
+        yield MenuItem::linkToCrud('Fermetures', 'fa-regular fa-calendar-minus', ClosurePeriod::class);
 
         yield MenuItem::section('Gestion des salles');
         yield MenuItem::linkToCrud('Salles', 'fa-solid fa-location-dot', Room::class);
