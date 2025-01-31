@@ -19,6 +19,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
+    #[ORM\Column]
+    private ?bool $reservationNotification = false;
+
+    #[ORM\Column]
+    private ?bool $contactNotification = false;
+
     /**
      * @var list<string> The user roles
      */
@@ -56,6 +62,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
+    }
+
+    public function getReservationNotification(): ?bool
+    {
+        return $this->reservationNotification;
+    }
+
+    public function setReservationNotification(bool $reservationNotification): static
+    {
+        $this->reservationNotification = $reservationNotification;
+
+        return $this;
+    }
+
+    public function getContactNotification(): ?bool
+    {
+        return $this->contactNotification;
+    }
+
+    public function setContactNotification(bool $contactNotification): static
+    {
+        $this->contactNotification = $contactNotification;
+
+        return $this;
     }
 
     /**

@@ -20,6 +20,7 @@ use App\Entity\Room;
 use App\Entity\RoomOption;
 use App\Entity\RoomReservation;
 use App\Entity\RoomReservationSlot;
+use App\Entity\User;
 use App\Repository\RoomReservationRepository;
 
 #[IsGranted("ROLE_USER")]
@@ -54,6 +55,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToRoute('Retour au site', 'fa fa-arrow-left', 'app_home');
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
 
+        yield MenuItem::section('Général');
+        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
+
         yield MenuItem::section('Contacts');
         yield MenuItem::linkToCrud('Messages de contact', 'fa fa-envelope', ContactMessage::class);
 
@@ -76,9 +80,5 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Images du menu', 'fas fa-images', MenuImage::class);
         // yield MenuItem::linkToCrud('Articles', 'fa-solid fa-burger', Article::class);
         // yield MenuItem::linkToCrud('Catégories', 'fa-solid fa-tag', ArticleCategory::class);
-
-        yield MenuItem::section('Autre');
-        yield MenuItem::linkToUrl('Page Facebook', 'fa-brands fa-facebook', 'https://www.facebook.com/LeReflexBarRestaurant/')
-            ->setLinkTarget('_blank');
     }
 }
