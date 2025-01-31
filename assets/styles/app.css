@@ -30,3 +30,42 @@ body {
     @apply w-full bg-[#bd801f] hover:bg-[#8e6018] text-white font-bold py-2 px-4 rounded-lg transition duration-200;
   }
 }
+
+
+.logo-path {
+  opacity: 0;
+  animation: fadeIn 2s ease-in-out forwards;
+  filter: hue-rotate(0deg);
+  animation: fadeIn 2s ease-in-out forwards, rainbow 13s linear infinite;
+}
+
+.path-circle {
+  animation-delay: 0.5s;
+}
+
+.path-r {
+  animation-delay: 2s;
+}
+
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes rainbow {
+  0% {
+      fill: #ff0000;
+      filter: hue-rotate(0deg);
+  }
+  100% {
+      fill: #ff0000;
+      filter: hue-rotate(360deg);
+  }
+}
+
