@@ -34,31 +34,50 @@ body {
 
 .logo-path {
   opacity: 0;
-  animation: fadeIn 2s ease-in-out forwards;
-  filter: hue-rotate(0deg);
-  animation: fadeIn 2s ease-in-out forwards, rainbow 13s linear infinite;
+  stroke: url(#rainbowBorder);
+  stroke-width: 4;
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  fill: transparent;
+  animation: 
+      drawBorder 2s ease forwards,
+      fillLogo 2s ease forwards 2s, /* Commence après drawBorder */
+      colorShift 13s linear infinite 4s; /* Commence après le remplissage */
 }
 
 .path-circle {
-  animation-delay: 0.5s;
+  animation-delay: 0.5s, 2.5s, 4.5s; /* Délais pour chaque animation */
 }
 
 .path-r {
-  animation-delay: 1s;
+  animation-delay: 1s, 3s, 5s; /* Délais pour chaque animation */
 }
 
-@keyframes fadeIn {
+@keyframes drawBorder {
   0% {
-      opacity: 0;
-      transform: translateY(20px);
+      opacity: 1;
+      stroke-dashoffset: 2000;
+      fill: transparent;
   }
   100% {
       opacity: 1;
-      transform: translateY(0);
+      stroke-dashoffset: 0;
+      fill: transparent;
   }
 }
 
-@keyframes rainbow {
+@keyframes fillLogo {
+  0% {
+      fill: transparent;
+      stroke-width: 4;
+  }
+  100% {
+      fill: #ff0000;
+      stroke-width: 0;
+  }
+}
+
+@keyframes colorShift {
   0% {
       fill: #ff0000;
       filter: hue-rotate(0deg);
@@ -69,3 +88,15 @@ body {
   }
 }
 
+#rainbowBorder {
+  animation: shiftGradient 3s linear infinite;
+}
+
+@keyframes shiftGradient {
+  0% {
+      transform: translateX(0%);
+  }
+  100% {
+      transform: translateX(100%);
+  }
+}

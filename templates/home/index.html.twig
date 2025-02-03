@@ -1,49 +1,71 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="w-full bg-[#0F1216]">
+    <section class="bg-[#0F1216]">
+        <div class="max-w-7xl mx-auto px-4 pt-16">
+            <div class="flex flex-wrap bg-marble-bg bg-cover bg-no-repeat rounded-lg overflow-hidden">
+                <!-- Logo Section -->
+                <div class="w-full md:w-1/2 flex items-stretch h-[600px]">
+                    <div class="relative w-full">
+                        <svg class="absolute inset-0 w-full h-full transform -scale-y-100 scale-100"
+                            xmlns="http://www.w3.org/2000/svg" 
+                            viewBox="0 0 1280 1280">
+                            <defs>
+                                <linearGradient id="rainbowBorder" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#FF0000"/>
+                                    <stop offset="33%" stop-color="#00FF00"/>
+                                    <stop offset="66%" stop-color="#0000FF"/>
+                                    <stop offset="100%" stop-color="#FF0000"/>
+                                </linearGradient>
+                            </defs>
+                            <path class="logo-path path-circle" 
+                                d="M570 1165 c-106 -33 -213 -139 -245 -242 -25 -80 -17 -193 19 -266 75 -155 268 -238 446 -193 70 18 166 70 181 98 14 26 5 22 -45 -16 -189 -144 -496 -45 -562 181 -34 116 2 251 89 335 55 54 118 85 204 103 l68 13 -55 0 c-30 0 -75 -6 -100 -13z"/>
+                            <path class="logo-path path-r" 
+                                d="M618 1030 c-10 -13 -18 -29 -18 -34 0 -6 -25 -35 -55 -66 -42 -42 -52 -59 -45 -70 8 -12 16 -8 45 25 34 39 35 39 24 10 -6 -16 -12 -64 -13 -105 -2 -41 -11 -97 -20 -124 -15 -42 -16 -50 -3 -63 23 -23 43 7 52 74 4 32 15 107 26 168 21 125 27 132 119 160 71 22 96 18 92 -15 -4 -35 -37 -66 -122 -116 -41 -24 -75 -48 -76 -52 0 -4 -4 -16 -9 -26 -7 -16 4 -31 56 -80 91 -86 141 -118 194 -123 44 -5 75 7 75 29 0 6 -7 5 -15 -2 -26 -21 -87 4 -167 70 -69 55 -113 99 -106 104 2 1 23 13 48 25 62 31 127 86 146 123 13 25 13 35 3 59 -26 63 -81 64 -201 1 -4 -2 -8 9 -10 25 l-3 28 -17 -25z"/>
+                        </svg>
+                    </div>
+                </div>
 
-    <div class="max-w-7xl mx-auto px-4 pt-16">
+                <!-- Content Section -->
+                <div class="w-full md:w-1/2 p-8 bg-[#0e1215]/95 backdrop-blur-sm flex flex-col justify-center space-y-6">
+                    <h2 class="text-4xl font-bold text-gray-200 font-serif">
+                        Le Reflex vous accueille
+                    </h2>
+                    <p class="text-gray-300 leading-relaxed text-lg font-light">
+                        Au cœur d'un cadre unique pour vos événements sur mesure. Plongez dans une atmosphère où la gastronomie rencontre l'événementiel.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed text-lg font-light">
+                        Que ce soit pour un dîner raffiné, un déjeuner d'affaires ou un événement privé, nous mettons tout en œuvre pour faire de chaque instant un souvenir inoubliable.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-		<div class="flex flex-wrap bg-marble-bg bg-cover bg-no-repeat rounded-lg overflow-hidden">
+    <div class="flex flex-col items-center bg-[#0e1215] w-full">
+		<h1 class="text-white text-4xl font-bold mb-4 text-center">
+			Notre menu du jour:
+		</h1>
 
-			<div class="w-full md:w-1/2 p-0 flex items-stretch h-[600px]">
-                <div class="relative w-full h-full">
-                    <svg class="absolute inset-0 w-full h-full transform -scale-y-100 scale-100"
-                        xmlns="http://www.w3.org/2000/svg" 
-                        viewBox="0 0 1280 1280">
-                        <path class="logo-path path-circle overflow-visible" d="M570 1165 c-106 -33 -213 -139 -245 -242 -25 -80 -17 -193 19 -266 75 -155 268 -238 446 -193 70 18 166 70 181 98 14 26 5 22 -45 -16 -189 -144 -496 -45 -562 181 -34 116 2 251 89 335 55 54 118 85 204 103 l68 13 -55 0 c-30 0 -75 -6 -100 -13z"/>
-                        <path class="logo-path path-r" d="M618 1030 c-10 -13 -18 -29 -18 -34 0 -6 -25 -35 -55 -66 -42 -42 -52 -59 -45 -70 8 -12 16 -8 45 25 34 39 35 39 24 10 -6 -16 -12 -64 -13 -105 -2 -41 -11 -97 -20 -124 -15 -42 -16 -50 -3 -63 23 -23 43 7 52 74 4 32 15 107 26 168 21 125 27 132 119 160 71 22 96 18 92 -15 -4 -35 -37 -66 -122 -116 -41 -24 -75 -48 -76 -52 0 -4 -4 -16 -9 -26 -7 -16 4 -31 56 -80 91 -86 141 -118 194 -123 44 -5 75 7 75 29 0 6 -7 5 -15 -2 -26 -21 -87 4 -167 70 -69 55 -113 99 -106 104 2 1 23 13 48 25 62 31 127 86 146 123 13 25 13 35 3 59 -26 63 -81 64 -201 1 -4 -2 -8 9 -10 25 l-3 28 -17 -25z"/>
-                    </svg>
-
-				</div>
-
-
+		<div class="max-w-md mx-auto mb-6"> <!-- Conteneur avec largeur maximale et centrage -->
+			<img 
+				src="images/menudujour.jpg" 
+				class="w-full h-auto object-cover rounded-lg shadow-lg" 
+				alt="Menu du jour"
+			>
+			<div>
+				{# TODO: Add the daily menu #}
 			</div>
-
-			<div class="w-full md:w-1/2 p-8 bg-[#0e1215] flex flex-col justify-center space-y-6 backdrop-blur-sm bg-opacity-95">
-
-				<h2 class="text-4xl font-bold text-gray-200 mb-4 font-serif">
-					Le Reflex vous accueille
-				</h2>
-				<p class="text-gray-300 leading-relaxed text-lg mb-6 font-light">
-					Au cœur d'un cadre unique pour vos événements sur mesure. Plongez dans une atmosphère où la gastronomie rencontre l'événementiel.
-				</p>
-				<p class="text-gray-300 leading-relaxed text-lg font-light">
-					Que ce soit pour un dîner raffiné, un déjeuner d'affaires ou un événement privé, nous mettons tout en œuvre pour faire de chaque instant un souvenir inoubliable.
-				</p>
-
-			</div>
-
 		</div>
 
-</div>
+		<a href="{{ path('app_menu') }}" class="inline-block bg-white text-black px-6 py-2 rounded hover:bg-gray-100 transition duration-300 ease-in-out">
+			Découvrir notre menu
+		</a>
+
+	</div>
 
 
-    <!-- About Section -->
-    <div class="max-w-7xl mx-auto px-4 my-8">
-        {# TODO: Add more images #}
-    </div>
+
 
     <!-- Experience Section -->
     <div class="w-full py-20 px-4 bg-[#0F1216]">
@@ -94,33 +116,27 @@
     </div>
 
 
-	    <!-- Menu Section -->
+    <!-- video section -->
+    <div class="w-full flex items-center justify-center bg-[#0F1216]">
+        <!-- Video Container -->
+        <div class="max-w-7xl p-4">
+            <video 
+                class="w-full md:w-3/4 lg:w-2/3 h-auto rounded-xl shadow-2xl object-cover mx-auto"
+                controls
+                muted
+            >
+                <source src="{{ asset('video/presentation.mp4') }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+	<!-- Menu Section -->
     <div class="w-full bg-[#0F1216] min-h-screen p-8">
 
         <div class="max-w-7xl mx-auto">
 
-            <div class="mb-20 flex flex-col items-center">
-
-				<h1 class="text-white text-4xl font-bold mb-4 text-center">
-					Notre menu du jour:
-				</h1>
-
-				<div class="max-w-md mx-auto mb-6"> <!-- Conteneur avec largeur maximale et centrage -->
-					<img 
-						src="images/menudujour.jpg" 
-						class="w-full h-auto object-cover rounded-lg shadow-lg" 
-						alt="Menu du jour"
-					>
-					<div>
-						{# TODO: Add the daily menu #}
-					</div>
-				</div>
-
-				<a href="{{ path('app_menu') }}" class="inline-block bg-white text-black px-6 py-2 rounded hover:bg-gray-100 transition duration-300 ease-in-out">
-					Découvrir notre menu
-				</a>
-
-			</div>
+            
 
 
             <h2 class="text-2xl font-bold mb-6 text-white text-center">Infos pratiques - LE REFLEX</h2>
@@ -233,6 +249,9 @@
 							<div>
 								<h3 class="font-semibold">Adresse</h3>
 								<p class="text-gray-300">206 rue Yser, 59200 Tourcoing, France</p>
+                                <p class="mt-1">
+                                    <a href="https://www.google.com/search?q=206+Rue+de+l%27Yser+59200+Tourcoing" target="_blank" class="italic text-gray-200 hover:text-[#bd801f] underline">Afficher l'adresse</a>
+                                </p>
 							</div>
 						</div>
 
