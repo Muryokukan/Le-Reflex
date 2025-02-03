@@ -29,3 +29,73 @@ body {
     @apply w-full bg-[#bd801f] hover:bg-[#8e6018] text-white font-bold py-2 px-4 rounded-lg transition duration-200;
   }
 }
+
+
+.logo-path {
+  opacity: 0;
+  stroke: url(#rainbowBorder);
+  stroke-width: 4;
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  fill: transparent;
+  animation: 
+      drawBorder 2s ease forwards,
+      fillLogo 2s ease forwards 2s, /* Commence après drawBorder */
+      colorShift 13s linear infinite 4s; /* Commence après le remplissage */
+}
+
+.path-circle {
+  animation-delay: 0.5s, 2.5s, 4.5s; /* Délais pour chaque animation */
+}
+
+.path-r {
+  animation-delay: 1s, 3s, 5s; /* Délais pour chaque animation */
+}
+
+@keyframes drawBorder {
+  0% {
+      opacity: 1;
+      stroke-dashoffset: 2000;
+      fill: transparent;
+  }
+  100% {
+      opacity: 1;
+      stroke-dashoffset: 0;
+      fill: transparent;
+  }
+}
+
+@keyframes fillLogo {
+  0% {
+      fill: transparent;
+      stroke-width: 4;
+  }
+  100% {
+      fill: #ff0000;
+      stroke-width: 0;
+  }
+}
+
+@keyframes colorShift {
+  0% {
+      fill: #ff0000;
+      filter: hue-rotate(0deg);
+  }
+  100% {
+      fill: #ff0000;
+      filter: hue-rotate(360deg);
+  }
+}
+
+#rainbowBorder {
+  animation: shiftGradient 3s linear infinite;
+}
+
+@keyframes shiftGradient {
+  0% {
+      transform: translateX(0%);
+  }
+  100% {
+      transform: translateX(100%);
+  }
+}
