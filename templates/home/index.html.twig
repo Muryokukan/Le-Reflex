@@ -42,27 +42,31 @@
         </div>
     </section>
 
-    <div class="flex flex-col items-center bg-[#0e1215] w-full">
-		<h1 class="text-white text-4xl font-bold mb-4 text-center">
-			Notre menu du jour:
-		</h1>
+<div class="flex flex-col items-center bg-[#0e1215] w-full pt-8">
+    <h1 class="text-white text-4xl font-bold mb-4 text-center">
+        Notre menu du jour:
+    </h1>
 
-		<div class="max-w-md mx-auto mb-6"> <!-- Conteneur avec largeur maximale et centrage -->
-			<img 
-				src="images/menudujour.jpg" 
-				class="w-full h-auto object-cover rounded-lg shadow-lg" 
-				alt="Menu du jour"
-			>
-			<div>
-				{# TODO: Add the daily menu #}
-			</div>
-		</div>
+    <div class="max-w-md mx-auto mb-6 relative">
+            <img 
+                src="{{ asset('images/menudujour.jpg') }}" 
+                class="w-full h-auto object-cover rounded-lg shadow-lg" 
+                alt="Menu du jour"
+            >
+            {% if dailyMenu %}
+                <div class="absolute inset-0 flex items-center justify-center text-center rounded-lg translate-y-[10%]">
+                    <div class="bg-black/50 text-white p-4 rounded-lg w-[80%]">
+                        {{ dailyMenu.content|raw }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
 
-		<a href="{{ path('app_menu') }}" class="inline-block bg-white text-black px-6 py-2 rounded hover:bg-gray-100 transition duration-300 ease-in-out">
-			Découvrir notre menu
-		</a>
+        <a href="{{ path('app_menu') }}" class="inline-block bg-white text-black px-6 py-2 rounded hover:bg-gray-100 transition duration-300 ease-in-out">
+            Découvrir notre menu
+        </a>
+    </div>
 
-	</div>
 
 
 

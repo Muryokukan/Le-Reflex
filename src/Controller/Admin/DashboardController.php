@@ -24,6 +24,7 @@ use App\Entity\RoomReservation;
 use App\Entity\RoomReservationSlot;
 use App\Entity\User;
 use App\Repository\RoomReservationRepository;
+use App\Entity\DailyMenu;
 
 #[IsGranted("ROLE_USER")]
 class DashboardController extends AbstractDashboardController
@@ -59,6 +60,9 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::section('Général');
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
+
+        yield MenuItem::section('Page d\'accueil');
+        yield MenuItem::linkToCrud('Menu du jour', 'fa fa-utensils', DailyMenu::class);
 
         yield MenuItem::section('Contacts');
         yield MenuItem::linkToCrud('Messages de contact', 'fa fa-envelope', ContactMessage::class);
