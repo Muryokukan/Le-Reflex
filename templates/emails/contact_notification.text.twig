@@ -1,0 +1,15 @@
+Nouveau message de contact de {{ contact.fullname }}
+Reçu le {{ contact.submittedAt|date('d/m/Y à H:i') }}
+
+INFORMATIONS DE CONTACT
+-----------------------
+Nom complet : {{ contact.fullname }}
+Email : {{ contact.email }}
+{% if contact.phone %}
+Téléphone : {{ contact.phone }}
+{% endif %}
+Sujet : {{ contact.subject }}
+
+MESSAGE
+-------
+{{ contact.message }}

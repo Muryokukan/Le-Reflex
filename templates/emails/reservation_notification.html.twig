@@ -1,0 +1,89 @@
+<div id="body">
+    <div class="container">
+        <div class="header">
+            <h1>Nouvelle réservation de salle</h1>
+            <p>Reçue le {{ reservation.createdAt|date('d/m/Y à H:i') }}</p>
+        </div>
+
+        <div class="message-details">
+            <h2>Informations du client</h2>
+            <ul>
+                <li>
+                    <strong>Nom complet :</strong>
+                    {{ reservation.lastname }} {{ reservation.firstname }}
+                </li>
+                <li>
+                    <strong>Email :</strong>
+                    {% if reservation.email %}
+                        <a href="mailto:{{ reservation.email }}">{{ reservation.email }}</a>
+                    {% else %}
+                        Non renseigné
+                    {% endif %}
+                </li>
+                <li>
+                    <strong>Téléphone :</strong>
+                    <a href="tel:{{ reservation.phoneNumber }}">{{ reservation.phoneNumber }}</a>
+                </li>
+            </ul>
+
+            <h2>Détails de la réservation</h2>
+            <ul>
+                <li>
+                    <strong>Date de réservation :</strong>
+                    {{ reservation.reservationDate|date('d/m/Y') }}
+                </li>
+                <li>
+                    <strong>Créneau :</strong>
+                    {{ reservation.slot.description }}
+                </li>
+                <li>
+                    <strong>Salles réservées :</strong><br>
+                    {{ reservation.roomsList|raw }}
+                </li>
+                {% if reservation.roomOptions|length > 0 %}
+                    <li>
+                        <strong>Options choisies :</strong><br>
+                        {{ reservation.optionsList|raw }}
+                    </li>
+                {% endif %}
+                <li>
+                    <strong>Montant total :</strong>
+                    {{ reservation.totalAmount }}€
+                </li>
+                <li>
+                    <strong>Statut :</strong>
+                    {{ reservation.status.label() }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<style>
+    #body {
+        font-family: Arial, sans-serif;
+        line-height: 1.5;
+        color: #333333;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .header {
+        background-color: #f8f9fa;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .message-details {
+        margin-bottom: 20px;
+    }
+
+    .message-content {
+        background-color: #f8f9fa;
+        padding: 20px;
+    }
+</style>
