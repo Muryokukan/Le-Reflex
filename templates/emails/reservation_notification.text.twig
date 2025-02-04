@@ -1,0 +1,24 @@
+NOUVELLE RÉSERVATION DE SALLE
+Reçue le {{ reservation.createdAt|date('d/m/Y à H:i') }}
+
+INFORMATIONS DU CLIENT
+---------------------
+Nom complet : {{ reservation.lastname }} {{ reservation.firstname }}
+Email : {% if reservation.email %}{{ reservation.email }}{% else %}Non renseigné{% endif %}
+Téléphone : {{ reservation.phoneNumber }}
+
+DÉTAILS DE LA RÉSERVATION
+------------------------
+Date de réservation : {{ reservation.reservationDate|date('d/m/Y') }}
+Créneau : {{ reservation.slot.description }}
+
+Salles réservées :
+{{ reservation.roomsList|striptags }}
+
+{% if reservation.roomOptions|length > 0 %}
+Options choisies :
+{{ reservation.optionsList|striptags }}
+{% endif %}
+
+Montant total : {{ reservation.totalAmount }}€
+Statut : {{ reservation.status.label() }}

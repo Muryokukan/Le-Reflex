@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\ContactMessage;
+use App\Entity\RoomReservation;
 use App\Repository\UserRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -20,12 +21,9 @@ class MailerService
 
     public function sendContactNotification(ContactMessage $contactMessage): void
     {
-        // TODO: Send only to users who want to receive contact notifications
-        $users = $this->userRepository->findAll();
-        $emailAddresses = array_map(fn($user) => $user->getEmail(), $users);
-        $emailAddresses = implode(",", $emailAddresses);
+        $users = $this->userRepository->findBy(['contactNotification' => true]);
 
-        try {
+        foreach ($users as $user) {
             $email = (new TemplatedEmail())
                 ->from(
                     new Address(
@@ -33,18 +31,71 @@ class MailerService
                         $_ENV['APP_NAME']
                     )
                 )
-                ->to($emailAddresses)
+                ->to(new Address($user->getEmail()))
                 ->subject('Contact: ' . $contactMessage->getSubject())
                 ->htmlTemplate('emails/contact_notification.html.twig')
+                ->textTemplate('emails/contact_notification.text.twig')
                 ->context([
                     'contact' => $contactMessage,
                 ]);
 
-            $this->mailer->send($email);
-            $this->logger->info('Email de contact envoyé avec succès');
-        } catch (\Exception $e) {
-            $this->logger->error('Erreur lors de l\'envoi de l\'email de contact: ' . $e->getMessage());
-            throw $e;
+            try {
+                $this->mailer->send($email);
+                $this->logger->info('Email envoyé avec succès', [
+                    'to' => $user->getEmail(),
+                    'subject' => $contactMessage->getSubject(),
+                    'type' => 'contact_notification',
+                    'from' => 'noreply@' . $_ENV['APP_DOMAIN_NAME']
+                ]);
+            } catch (\Exception $e) {
+                $this->logger->error('Erreur d\'envoi d\'email', [
+                    'error' => $e->getMessage(),
+                    'to' => $user->getEmail(),
+                    'type' => 'contact_notification',
+                    'subject' => $contactMessage->getSubject()
+                ]);
+                throw $e;
+            }
+        }
+    }
+
+    public function sendReservationNotification(RoomReservation $roomReservation): void
+    {
+        $users = $this->userRepository->findBy(['reservationNotification' => true]);
+
+        foreach ($users as $user) {
+            $email = (new TemplatedEmail())
+                ->from(
+                    new Address(
+                        'noreply@' . $_ENV['APP_DOMAIN_NAME'],
+                        $_ENV['APP_NAME']
+                    )
+                )
+                ->to(new Address($user->getEmail()))
+                ->subject('Nouvelle demande de réservation: ' . $roomReservation->getReservationDate()->format('d/m/Y') )
+                ->htmlTemplate('emails/reservation_notification.html.twig')
+                ->textTemplate('emails/reservation_notification.text.twig')
+                ->context([
+                    'reservation' => $roomReservation,
+                ]);
+
+            try {
+                $this->mailer->send($email);
+                $this->logger->info('Email envoyé avec succès', [
+                    'to' => $user->getEmail(),
+                    'subject' => 'Nouvelle demande de réservation: ' . $roomReservation->getReservationDate()->format('d/m/Y'),
+                    'type' => 'reservation_notification',
+                    'from' => 'noreply@' . $_ENV['APP_DOMAIN_NAME']
+                ]);
+            } catch (\Exception $e) {
+                $this->logger->error('Erreur d\'envoi d\'email', [
+                    'error' => $e->getMessage(),
+                    'to' => $user->getEmail(),
+                    'type' => 'reservation_notification',
+                    'subject' => 'Nouvelle demande de réservation: ' . $roomReservation->getReservationDate()->format('d/m/Y')
+                ]);
+                throw $e;
+            }
         }
     }
 }

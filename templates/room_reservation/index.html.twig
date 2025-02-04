@@ -18,11 +18,11 @@
 {% block body %}
 	<div data-controller="room-reservation-date room-reservation-options" data-room-reservation-date-events-value="{{ calendarEvents }}" class="w-full md:container mx-auto px-0 md:px-4 py-8">
 
-		<h2 class="text-4xl font-bold text-[#bd801f] mb-6 text-center title-font">
+		{# <h2 class="text-4xl font-bold text-[#bd801f] mb-6 text-center title-font">
 			Nos salles
 		</h2>
 
-		<section class="h-96 w-3/4 bg-white mx-auto mb-8">TODO: Présenter les salles, carousel d'images des salles et options</section>
+		<section class="h-96 w-3/4 bg-white mx-auto mb-8">TODO: Présenter les salles, carousel d'images des salles et options</section> #}
 
 		<h2 class="text-4xl font-bold text-[#bd801f] mb-6 text-center title-font">
 			Formulaire de réservation
@@ -32,7 +32,33 @@
 
 		<div class="flex flex-col lg:flex-row gap-8">
 			<div class="flex-1 bg-white p-4 rounded-lg shadow">
-				<div data-room-reservation-date-target="calendar" class="sticky top-16"></div>
+				<div class="sticky top-16">
+					<div data-room-reservation-date-target="calendar"></div>
+					<div class="p-4 bg-white rounded-lg shadow-md">
+						<ul>
+							<li class="flex items-center space-x-2 mb-1">
+								<span class="w-4 h-4 rounded bg-white border-[1px] border-gray-300"></span>
+								<span>Réservable</span>
+							</li>
+							<li class="flex items-center space-x-2 mb-1">
+								<span class="w-4 h-4 rounded bg-[#2563eb50] border-[1px] border-gray-300"></span>
+								<span>Aujourd'hui (réservable)</span>
+							</li>
+							<li class="flex items-center space-x-2 mb-1">
+								<span class="w-4 h-4 rounded bg-[#ff000050] border-[1px] border-gray-300"></span>
+								<span>Réservations confirmées</span>
+							</li>
+							<li class="flex items-center space-x-2 mb-1">
+								<span class="w-4 h-4 rounded bg-[#ffa50050] border-[1px] border-gray-300"></span>
+								<span>Réservations en attentes de reception du virement</span>
+							</li>
+							<li class="flex items-center space-x-2 mb-1">
+								<span class="w-4 h-4 rounded bg-[#00000050] border-[1px] border-gray-300"></span>
+								<span>Fermutures</span>
+							</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 
 			<div class="flex-1 bg-white p-6 rounded-lg shadow">
@@ -55,7 +81,7 @@
 
 				<div class="flex flex-col md:flex-row gap-4">
 					<div class="flex-1">
-						{{ form_label(form.email, 'Email (nécessaire si paiement par virement)', {'label_attr': {'class': 'form-input-label'}}) }}
+						{{ form_label(form.email, 'Email (optionnel)', {'label_attr': {'class': 'form-input-label'}}) }}
 						{{ form_widget(form.email, {'attr': {'class': 'form-input'}}) }}
 						{{ form_errors(form.email, {'attr': {'class': 'form-input-error'}}) }}
 					</div>
@@ -171,10 +197,21 @@
 				</div>
 
 				<div>
-					<p class="form-input-label">Informations</p>
-					<p>- La demande de réservation doit être acceptée pour procéder au paiement</p>
+					<p class="form-input-label">Procédure</p>
 					<p>- Le paiement se fait sur place ou par virement</p>
 					<p>- La réservation n'est effective qu'après le paiement</p>
+				</div>
+
+				<div>
+					<p class="form-input-label">Si paiement pas virement</p>
+					<p>- Après l'envoi du formulaire, vous pouvez effectuer le virement au compte ci-dessous et nous en envoyer la preuve par email à l'adresse: <a href="mailto:lereflex@hotmail.com" class="italic hover:text-[#bd801f] underline">lereflex@hotmail.com</a>. En prenant soin de renseigner votre nom, prénom et qu'il s'agit d'une réservation de salle dans le libellé du virement et dans l'email.
+					</p>
+					<details>
+						<summary class="cursor-pointer">
+							Afficher le RIB
+						</summary>
+						<p>(TODO: Afficher le RIB)</p>
+					</details>
 				</div>
 
 				<button type="submit" class="form-send-btn">

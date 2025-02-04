@@ -12,36 +12,34 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-final class ContactMessageController extends AbstractController{
-    public function __construct(
-        private readonly EntityManagerInterface $entityManager,
-        private readonly MailerService $mailer,
-        private readonly ContactMessageMapper $mapper,
-    ) {
-    }
-
+final class ContactMessageController extends AbstractController
+{
     #[Route('/contact', name: 'app_contact', methods: ['GET', 'POST'])]
-    public function new(Request $request): Response
-    {
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        MailerService $mailer,
+        ContactMessageMapper $mapper,
+    ): Response {
         $form = $this->createForm(ContactMessageType::class, new ContactMessageDTO());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $contactMessage = $this->mapper->toEntity($form->getData());
-            
-            $this->entityManager->persist($contactMessage);
-            $this->entityManager->flush();
+            $contactMessage = $mapper->toEntity($form->getData());
+
+            $entityManager->persist($contactMessage);
+            $entityManager->flush();
 
             try {
-                $this->mailer->sendContactNotification($contactMessage);
+                $mailer->sendContactNotification($contactMessage);
                 $this->addFlash(
-                    'success', 
+                    'success',
                     'Votre message a été envoyé avec succès.'
                 );
             } catch (\Exception $e) {
                 $this->addFlash(
-                    'error',
-                    'Une erreur est survenu lors de l\'envoi de votre message. Veuillez réessayer plus tard ou nous contacter directement par email ou téléphone.'
+                    'warning',
+                    'Votre message a bien été enregistré mais nous rencontrons des difficultés techniques pour envoyer la notification. Notre traiterons votre demande dès que possible et restons contactable directement par email ou téléphone.'
                 );
             }
 
