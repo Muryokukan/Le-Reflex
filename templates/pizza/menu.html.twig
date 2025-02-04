@@ -66,7 +66,7 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+function initializePizzaPage() {
     // Toggle the topping list when clicking the button
     document.querySelectorAll('[id^="topping-toggle-"]').forEach(button => {
         button.addEventListener('click', function() {
@@ -80,20 +80,24 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
         checkbox.addEventListener('change', updateTotal);
     });
+}
 
-    function updateTotal(event) {
-        const pizzaCard = event.target.closest('[data-pizza-id]');
-        const basePrice = parseFloat(pizzaCard.querySelector('.text-red-600').textContent.replace(' €', '').replace(',', '.'));
-        const totalElement = pizzaCard.querySelector('.total-price');
-        
-        let total = basePrice;
-        
-        pizzaCard.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
-            total += parseFloat(checkbox.dataset.price);
-        });
-        
-        totalElement.textContent = total.toFixed(2).replace('.', ',') + ' €';
-    }
-});
+function updateTotal(event) {
+    const pizzaCard = event.target.closest('[data-pizza-id]');
+    const basePrice = parseFloat(pizzaCard.querySelector('.text-red-600').textContent.replace(' €', '').replace(',', '.'));
+    const totalElement = pizzaCard.querySelector('.total-price');
+    
+    let total = basePrice;
+    
+    pizzaCard.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+        total += parseFloat(checkbox.dataset.price);
+    });
+    
+    totalElement.textContent = total.toFixed(2).replace('.', ',') + ' €';
+}
+
+// DOMContentLoaded and turbo:load
+document.addEventListener('DOMContentLoaded', initializePizzaPage);
+document.addEventListener('turbo:load', initializePizzaPage);
 </script>
 {% endblock %}
