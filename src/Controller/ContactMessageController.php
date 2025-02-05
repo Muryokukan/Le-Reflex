@@ -14,7 +14,8 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class ContactMessageController extends AbstractController
 {
-    #[Route('/contact', name: 'app_contact', methods: ['GET', 'POST'])]
+    // Disabled by 'condition: false'
+    #[Route('/contact', name: 'app_contact', methods: ['GET', 'POST'], condition: 'false')]
     public function new(
         Request $request,
         EntityManagerInterface $entityManager,
