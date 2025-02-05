@@ -38,11 +38,11 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        $unreadCount = $this->contactMessageRepository->countUnread();
+        // $unreadCount = $this->contactMessageRepository->countUnread();
         $countReservationsByStatus = $this->roomReservationRepository->countReservationsByStatus();
 
         return $this->render('admin/dashboard.html.twig', [
-            'unread_messages_count' => $unreadCount,
+            // 'unread_messages_count' => $unreadCount,
             'countReservationsByStatus' => $countReservationsByStatus,
         ]);
     }

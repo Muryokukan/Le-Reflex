@@ -12,6 +12,9 @@
 			<a href="{{ path('app_menu') }}" class="hover:text-[#bd801f] title-font">Menu</a>
 			<a href="{{ path('app_pizza_menu') }}" class="hover:text-[#bd801f] title-font">Pizza</a>
 			<a href="{{ path('app_room_reservation_index') }}" class="hover:text-[#bd801f] title-font">Location de salle</a>
+			{% if app.user and is_granted('ROLE_USER') %}
+				<a href="{{ path('admin') }}" class="hover:text-[#bd801f] title-font">Gestion admin</a>
+			{% endif %}
 		</div>
 
 		<div class="md:hidden">
@@ -24,10 +27,13 @@
 	</nav>
 
 	<div data-header-menu-target="mobileMenu" class="hidden md:hidden flex-col bg-gray-700 text-gray-200 text-3xl text-center space-y-4 pb-8 px-4">
-		<a href="{{ path('app_home') }}" class="hover:text-[#bd801f]">Accueil</a>
-		<a href="{{ path('app_event') }}" class="hover:text-[#bd801f]">Évènements</a>
-		<a href="{{ path('app_menu') }}" class="hover:text-[#bd801f]">Menu</a>
-		<a href="{{ path('app_pizza_menu') }}" class="hover:text-[#bd801f]">Pizza</a>
-		<a href="{{ path('app_room_reservation_index') }}" class="hover:text-[#bd801f]">Location de salle</a>
+		<a href="{{ path('app_home') }}" class="hover:text-[#bd801f] title-font">Accueil</a>
+		<a href="{{ path('app_event') }}" class="hover:text-[#bd801f] title-font">Évènements</a>
+		<a href="{{ path('app_menu') }}" class="hover:text-[#bd801f] title-font">Menu</a>
+		<a href="{{ path('app_pizza_menu') }}" class="hover:text-[#bd801f] title-font">Pizza</a>
+		<a href="{{ path('app_room_reservation_index') }}" class="hover:text-[#bd801f] title-font">Location de salle</a>
+		{% if app.user and is_granted('ROLE_USER') %}
+			<a href="{{ path('admin') }}" class="hover:text-[#bd801f] title-font">Gestion admin</a>
+		{% endif %}
 	</div>
 </header>
