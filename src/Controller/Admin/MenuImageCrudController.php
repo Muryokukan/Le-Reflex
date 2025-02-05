@@ -27,8 +27,9 @@ class MenuImageCrudController extends AbstractCrudController
             TextField::new('file', 'Image')
                 ->setFormType(VichImageType::class)
                 ->onlyOnForms(),
-            TextField::new('description', 'Description')
-                ->setRequired(false),
+            TextField::new('description', 'Titre')
+                ->setRequired(false)
+                ->setHelp('Texte affiché dans le sommaire.'),
             NumberField::new('displayOrder', 'Ordre d\'affichage')
                 ->setHelp('Les images sans ordre d\'affichage apparaitront en dernier'),
             BooleanField::new('enabled', 'Afficher l\'image sur le menu'),
