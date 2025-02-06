@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Pizza;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -22,11 +23,23 @@ class PizzaCrudController extends AbstractCrudController
     {
         return [
             TextField::new('name', 'Nom'),
-            TextEditorField::new('description'),
+            TextEditorField::new('description', "Description")
+                ->onlyOnForms(),
+            TextField::new('description', 'Description')
+                ->renderAsHtml()
+                ->onlyOnIndex(),
             MoneyField::new('price', 'Prix')
                 ->setCurrency('EUR')
                 ->setStoredAsCents(false),
-            AssociationField::new('toppings', 'Ingrédients'),
+            AssociationField::new('toppings', 'Suppléments')
+                ->setFormTypeOptions([
+                    'by_reference' => false,
+                    'choice_label' => 'name',
+                ])
+                ->onlyOnForms(),
+            TextField::new('toppingList', 'Suppléments')
+                ->onlyOnIndex()
+                ->renderAsHtml(),
             ImageField::new('imageFilename', 'Image')
                 ->setBasePath('/images/pizzas')
                 ->onlyOnIndex(),
@@ -34,5 +47,15 @@ class PizzaCrudController extends AbstractCrudController
                 ->setFormType(VichImageType::class)
                 ->onlyOnForms(),
         ];
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInSingular('Pizza')
+            ->setEntityLabelInPlural('Pizzas')
+            ->setPageTitle(Crud::PAGE_INDEX, 'Liste des %entity_label_plural%')
+            ->setPageTitle(Crud::PAGE_EDIT, 'Modifier une %entity_label_singular%')
+            ->setPageTitle(Crud::PAGE_NEW, 'Ajouter une %entity_label_singular%');
     }
 }

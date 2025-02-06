@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -18,6 +20,17 @@ class Topping
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?float $additionalPrice = null;
+
+    /**
+     * @var Collection<int, Pizza>
+     */
+    #[ORM\ManyToMany(targetEntity: Pizza::class, inversedBy: 'toppings')]
+    private Collection $pizzas;
+
+    public function __construct()
+    {
+        $this->pizzas = new ArrayCollection();
+    }
 
     public function __toString(): string
     {
@@ -50,5 +63,39 @@ class Topping
     {
         $this->additionalPrice = $additionalPrice;
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Pizza>
+     */
+    public function getPizzas(): Collection
+    {
+        return $this->pizzas;
+    }
+
+    public function addPizza(Pizza $pizza): static
+    {
+        if (!$this->pizzas->contains($pizza)) {
+            $this->pizzas->add($pizza);
+        }
+
+        return $this;
+    }
+
+    public function removePizza(Pizza $pizza): static
+    {
+        $this->pizzas->removeElement($pizza);
+
+        return $this;
+    }
+
+    public function getPizzaList(): string
+    {
+        return implode(
+            '<br>',
+            $this->pizzas->map(
+                fn($pizza) => $pizza->getName()
+            )->toArray()
+        );
     }
 }
