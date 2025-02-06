@@ -36,7 +36,7 @@ class Pizza
    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
    private ?\DateTimeInterface $updatedAt = null;
 
-   #[ORM\ManyToMany(targetEntity: Topping::class)]
+   #[ORM\ManyToMany(targetEntity: Topping::class, mappedBy: 'pizzas')]
    private Collection $toppings;
 
    public function __construct()
@@ -122,17 +122,32 @@ class Pizza
        return $this->toppings;
    }
 
-   public function addTopping(Topping $topping): self
+   public function addTopping(Topping $topping): static
    {
        if (!$this->toppings->contains($topping)) {
-           $this->toppings[] = $topping;
+           $this->toppings->add($topping);
+           $topping->addPizza($this);
        }
+
        return $this;
    }
 
-   public function removeTopping(Topping $topping): self
+   public function removeTopping(Topping $topping): static
    {
-       $this->toppings->removeElement($topping);
+       if ($this->toppings->removeElement($topping)) {
+           $topping->removePizza($this);
+       }
+
        return $this;
+   }
+
+   public function getToppingList(): string
+   {
+       return implode(
+           '<br>',
+           $this->toppings->map(
+               fn($topping) => $topping->getName()
+           )->toArray()
+       );
    }
 }
