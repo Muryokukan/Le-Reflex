@@ -4,9 +4,8 @@ namespace App\Controller\Admin;
 
 // use App\Entity\Article;
 // use App\Entity\ArticleCategory;
-
+// use App\Entity\ContactMessage;
 use App\Entity\ClosurePeriod;
-use App\Entity\ContactMessage;
 use App\Entity\EventImage;
 use App\Entity\MenuImage;
 use App\Repository\ContactMessageRepository;
@@ -58,34 +57,34 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToRoute('Retour au site', 'fa fa-arrow-left', 'app_home');
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
 
-        yield MenuItem::section('Général');
-        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
-
-        yield MenuItem::section('Page d\'accueil');
-        yield MenuItem::linkToCrud('Menu du jour', 'fa fa-utensils', DailyMenu::class);
-
-        yield MenuItem::section('Contacts');
-        yield MenuItem::linkToCrud('Messages de contact', 'fa fa-envelope', ContactMessage::class);
+        // yield MenuItem::section('Contacts');
+        // yield MenuItem::linkToCrud('Messages de contact', 'fa fa-envelope', ContactMessage::class);
 
         yield MenuItem::section('Calendrier');
         yield MenuItem::linkToCrud('Réservations de salles', 'fa-regular fa-calendar', RoomReservation::class);
         yield MenuItem::linkToCrud('Fermetures', 'fa-regular fa-calendar-minus', ClosurePeriod::class);
+
+        yield MenuItem::section('Évènements');
+        yield MenuItem::linkToCrud('Page évènements', 'fas fa-images', EventImage::class);
+
+        yield MenuItem::section('Restaurant');
+        yield MenuItem::linkToCrud('Menu du jour', 'fa fa-utensils', DailyMenu::class);
+        yield MenuItem::linkToCrud('Page menu', 'fas fa-images', MenuImage::class);
+        yield MenuItem::linkToCrud('Pizzas', 'fa fa-pizza-slice', Pizza::class);
+        yield MenuItem::linkToCrud('Suppléments pizza', 'fa fa-plus-circle', Topping::class);
+
+        // yield MenuItem::section('Gestion du menu');
+        // yield MenuItem::linkToCrud('Articles', 'fa-solid fa-burger', Article::class);
+        // yield MenuItem::linkToCrud('Catégories', 'fa-solid fa-tag', ArticleCategory::class);
 
         yield MenuItem::section('Gestion des salles');
         yield MenuItem::linkToCrud('Salles', 'fa-solid fa-location-dot', Room::class);
         yield MenuItem::linkToCrud('Options', 'fa fa-plus-circle', RoomOption::class);
         yield MenuItem::linkToCrud('Créneaux', 'fa-regular fa-clock', RoomReservationSlot::class);
 
-        yield MenuItem::section('Restaurant');
-        yield MenuItem::linkToCrud('Pizzas', 'fa fa-pizza-slice', Pizza::class);
-        yield MenuItem::linkToCrud('Suppléments', 'fa fa-plus-circle', Topping::class);
-
-        yield MenuItem::section('Gestion des évènements');
-        yield MenuItem::linkToCrud('Images des évènements', 'fas fa-images', EventImage::class);
-
-        yield MenuItem::section('Gestion du menu');
-        yield MenuItem::linkToCrud('Images du menu', 'fas fa-images', MenuImage::class);
-        // yield MenuItem::linkToCrud('Articles', 'fa-solid fa-burger', Article::class);
-        // yield MenuItem::linkToCrud('Catégories', 'fa-solid fa-tag', ArticleCategory::class);
+        yield MenuItem::section('Gestion du site');
+        yield MenuItem::linkToDashboard('Horaires', 'fa-regular fa-clock');
+        yield MenuItem::linkToDashboard('Localisation et contact', 'fa fa-home', );
+        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
     }
 }
