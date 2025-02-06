@@ -1,13 +1,14 @@
 <a href="{{ ea_url().setController('App\\Controller\\Admin\\RoomReservationCrudController').setAction('index').generateUrl() }}" class="card text-decoration-none border rounded shadow-sm" style="width: 16rem; background-color: #D4D4D4;">
 	<div class="card-body text-dark">
-		<h2 class="card-title fw-bold display-6 text-center">
+		{% set countColor = (count == 0) ? 'green' : 'red' %}
+		<h2 class="card-title fw-bold display-6 text-center" style="color: {{ countColor }} !important;">
 			{{ count }}
 		</h2>
 		<p class="card-text mt-2 text-center">
 			{% if count == 1 %}
-				Réservation en attente de validation de la date
+				en attente de validation<br> de la <strong>date</strong>
 			{% else %}
-				Réservations en attentes de validation de la date
+				en attentes de validation<br> de la <strong>date</strong>
 			{% endif %}
 		</p>
 	</div>

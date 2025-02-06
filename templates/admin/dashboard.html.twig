@@ -3,10 +3,21 @@
 {% block content %}
 	<div class="mt-5">
 		<h1 class="mb-4 display-5 fw-bold text-center">Dashboard - Le Reflex</h1>
-		<div class="d-flex flex-wrap gap-3">
-			{# {{ include("/admin/card/_unread_count_contact_message.html.twig", {"unread_messages_count": unread_messages_count}) }} #}
-			{{ include("/admin/card/_waiting_date_validation_room_reservation_count.html.twig", {"count": countReservationsByStatus['waiting_date_confirmation']|default(0)}) }}
-			{{ include("/admin/card/_waiting_payment_room_reservation_count.html.twig", {"count": countReservationsByStatus['waiting_payment']|default(0)}) }}
+
+		{# <div class="d-flex flex-column align-items-center mb-5">
+			<h2 class="text-center mb-3">Contacts</h2>
+			<div class="d-flex flex-wrap justify-content-center gap-3">
+				{{ include("/admin/card/_unread_count_contact_message.html.twig", {"unread_messages_count": unread_messages_count}) }}
+			</div>
+		</div> #}
+
+		<div class="d-flex flex-column align-items-center">
+			<h2 class="text-center mb-3">Réservations de salles</h2>
+			<div class="d-flex flex-wrap justify-content-center gap-3">
+				{{ include("/admin/card/_waiting_date_validation_room_reservation_count.html.twig", {"count": countReservationsByStatus['waiting_date_confirmation']|default(0)}) }}
+				{{ include("/admin/card/_waiting_payment_room_reservation_count.html.twig", {"count": countReservationsByStatus['waiting_payment']|default(0)}) }}
+			</div>
 		</div>
+
 	</div>
 {% endblock %}
