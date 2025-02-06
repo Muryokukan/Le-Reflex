@@ -1,39 +1,78 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Notre Carte - Le Reflex{% endblock %}
+{% block title %}Pizzas - {% endblock %}
 
 {% block body %}
+<!-- Cart Modal -->
+<div id="cartModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center z-50">
+    <div class="bg-white p-8 rounded-lg shadow-xl max-w-md w-full max-h-[80vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold">Votre Panier</h2>
+            <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <div id="cartItems" class="space-y-4">
+            <!-- Cart items will be inserted here -->
+        </div>
+        <div id="cartTotal" class="mt-4 pt-4 border-t border-gray-200">
+            <div class="flex justify-between items-center">
+                <span class="font-bold">Total:</span>
+                <span id="totalAmount" class="font-bold">0.00 €</span>
+            </div>
+        </div>
+        <div class="mt-4 flex justify-end space-x-4">
+            <button onclick="clearCart()" class="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300">
+                Vider le panier
+            </button>
+            <button class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                Commander
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Floating Cart Button -->
+<button id="cartButton" onclick="toggleCart()" class="fixed bottom-8 right-8 bg-red-600 hover:bg-red-700 text-white w-16 h-16 rounded-full shadow-lg flex items-center justify-center transform hover:scale-110 transition-transform duration-200 z-40">
+    <span id="cartCount" class="absolute -top-2 -right-2 bg-white text-red-600 text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+        0
+    </span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+    </svg>
+</button>
+
 <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-8 text-center">Notre Carte des Pizzas</h1>
+    <h1 class="text-5xl font-bold text-[#bd801f] mb-10 text-center title-font">Nos Pizzas</h1>
     
     <div class="grid gap-6 md:gap-8">
         {% for pizza in pizzas %}
             <div class="bg-white rounded-lg shadow-md overflow-hidden" data-pizza-id="{{ pizza.id }}">
                 <div class="flex flex-col md:flex-row">
                     {% if pizza.imageFilename %}
-                        <div class="md:w-1/3">
+                        <div class="w-full md:w-1/3 h-32 sm:h-40 md:h-48 lg:h-56 xl:h-64 2xl:h-72">
                             <img src="{{ asset('images/pizzas/' ~ pizza.imageFilename) }}" 
                                 alt="{{ pizza.name }}"
-                                class="w-full max-h-48 object-cover">
+                                class="w-full h-full max-h-32 sm:max-h-40 md:max-h-48 lg:max-h-56 xl:max-h-64 2xl:max-h-72 object-cover">
                         </div>
                     {% endif %}
-                    
+
                     <div class="p-6 md:w-2/3">
                         <div class="flex justify-between items-start mb-4">
                             <h2 class="text-xl font-semibold">{{ pizza.name }}</h2>
-                            <div class="text-xl font-bold text-red-600">{{ pizza.price|number_format(2, '.', ',') }} €</div>
+                            <div class="text-xl font-bold text-red-600">{{ pizza.price|number_format(2, ',', ' ') }} €</div>
                         </div>
                         
                         <p class="text-gray-600 mb-4">{{ pizza.description|raw }}</p>
                         
                         {% if pizza.toppings|length > 0 %}
                             <div class="mb-4">
-                                <!-- Button to toggle the toppings -->
                                 <button class="w-full bg-gray-200 text-left py-2 px-4 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-red-500" id="topping-toggle-{{ pizza.id }}">
                                     Suppléments disponibles
                                 </button>
 
-                                <!-- Toppings list -->
                                 <div id="topping-list-{{ pizza.id }}" class="hidden space-y-2">
                                     {% for topping in pizza.toppings %}
                                         <label class="flex items-center space-x-2">
@@ -41,8 +80,9 @@
                                                    name="toppings[]" 
                                                    value="{{ topping.id }}"
                                                    class="rounded border-gray-300 text-red-600 focus:ring-red-500"
-                                                   data-price="{{ topping.additionalPrice }}">
-                                            <span>{{ topping.name }} (+{{ topping.additionalPrice|number_format(2, '.', ',') }} €)</span>
+                                                   data-price="{{ topping.additionalPrice }}"
+                                                   data-name="{{ topping.name }}">
+                                            <span>{{ topping.name }} (+{{ topping.additionalPrice|number_format(2, ',', ' ') }} €)</span>
                                         </label>
                                     {% endfor %}
                                 </div>
@@ -54,8 +94,8 @@
                                 <span class="font-semibold">Total:</span>
                                 <span class="total-price font-bold">{{ pizza.price|number_format(2, ',', ' ') }} €</span>
                             </div>
-                            <button class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors">
-                                Commander
+                            <button onclick="addToCart({{ pizza.id }})" class="add-to-cart-btn bg-[#bd801f] hover:bg-[#8e6018] font-bold text-white px-6 py-2 rounded-lg transition-colors">
+                                Ajouter au panier
                             </button>
                         </div>
                     </div>
@@ -66,38 +106,161 @@
 </div>
 
 <script>
-function initializePizzaPage() {
-    // Toggle the topping list when clicking the button
+// Initialize cart from localStorage
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+// Toggle cart modal
+function toggleCart() {
+    const modal = document.getElementById('cartModal');
+    modal.classList.toggle('hidden');
+    updateCartDisplay();
+}
+
+// Update cart counter
+function updateCartCount() {
+    const cartCount = document.getElementById('cartCount');
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCount.textContent = totalItems;
+}
+
+// Update cart display in modal
+function updateCartDisplay() {
+    const cartItems = document.getElementById('cartItems');
+    const totalAmount = document.getElementById('totalAmount');
+    
+    cartItems.innerHTML = '';
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        const itemTotal = item.totalPrice * item.quantity;
+        total += itemTotal;
+
+        const itemElement = document.createElement('div');
+        itemElement.className = 'flex justify-between items-center p-2 border-b';
+        itemElement.innerHTML = `
+            <div class="flex-1">
+                <h3 class="font-bold">${item.name}</h3>
+                <p class="text-sm text-gray-600">
+                    ${item.toppings.map(t => t.name).join(', ')}
+                </p>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button onclick="updateQuantity(${index}, -1)" class="px-2 bg-gray-200 rounded">-</button>
+                <span>${item.quantity}</span>
+                <button onclick="updateQuantity(${index}, 1)" class="px-2 bg-gray-200 rounded">+</button>
+                <span class="ml-4">${(itemTotal).toFixed(2).replace('.', ',')} €</span>
+                <button onclick="removeItem(${index})" class="ml-2 text-red-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                </button>
+            </div>
+        `;
+        cartItems.appendChild(itemElement);
+    });
+
+    totalAmount.textContent = total.toFixed(2).replace('.', ',') + ' €';
+}
+
+// Add item to cart
+function addToCart(pizzaId) {
+    const pizzaCard = document.querySelector(`[data-pizza-id="${pizzaId}"]`);
+    const pizzaName = pizzaCard.querySelector('h2').textContent;
+    const basePrice = parseFloat(pizzaCard.querySelector('.text-red-600').textContent.replace(' €', '').replace(',', '.'));
+    
+    const selectedToppings = Array.from(pizzaCard.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => ({
+        id: checkbox.value,
+        name: checkbox.dataset.name,
+        price: parseFloat(checkbox.dataset.price)
+    }));
+
+    const totalPrice = basePrice + selectedToppings.reduce((sum, topping) => sum + topping.price, 0);
+
+    const cartItem = {
+        id: pizzaId,
+        name: pizzaName,
+        basePrice: basePrice,
+        toppings: selectedToppings,
+        totalPrice: totalPrice,
+        quantity: 1
+    };
+
+    const existingItemIndex = cart.findIndex(item => 
+        item.id === cartItem.id && 
+        JSON.stringify(item.toppings) === JSON.stringify(cartItem.toppings)
+    );
+
+    if (existingItemIndex > -1) {
+        cart[existingItemIndex].quantity += 1;
+    } else {
+        cart.push(cartItem);
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    
+    // Show confirmation
+    alert('Pizza ajoutée au panier !');
+}
+
+// Update quantity of item in cart
+function updateQuantity(index, change) {
+    cart[index].quantity += change;
+    if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    updateCartDisplay();
+}
+
+// Remove item from cart
+function removeItem(index) {
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    updateCartDisplay();
+}
+
+// Clear cart
+function clearCart() {
+    cart = [];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    updateCartDisplay();
+}
+
+// Initialize page functionality
+function initializePage() {
+    // Toggle toppings list
     document.querySelectorAll('[id^="topping-toggle-"]').forEach(button => {
         button.addEventListener('click', function() {
-            const pizzaId = button.id.split('-')[2]; // Get pizza ID from button ID
-            const toppingList = document.getElementById('topping-list-' + pizzaId);
-            toppingList.classList.toggle('hidden'); // Show or hide the list
+            const pizzaId = this.id.split('-')[2];
+            const toppingList = document.getElementById(`topping-list-${pizzaId}`);
+            toppingList.classList.toggle('hidden');
         });
     });
 
-    // Update total when toppings are selected or unselected
+    // Update total when toppings are selected
     document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-        checkbox.addEventListener('change', updateTotal);
+        checkbox.addEventListener('change', function(event) {
+            const pizzaCard = this.closest('[data-pizza-id]');
+            const basePrice = parseFloat(pizzaCard.querySelector('.text-red-600').textContent.replace(' €', '').replace(',', '.'));
+            const totalElement = pizzaCard.querySelector('.total-price');
+            
+            let total = basePrice;
+            pizzaCard.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+                total += parseFloat(checkbox.dataset.price);
+            });
+            
+            totalElement.textContent = total.toFixed(2).replace('.', ',') + ' €';
+        });
     });
+
+    updateCartCount();
 }
 
-function updateTotal(event) {
-    const pizzaCard = event.target.closest('[data-pizza-id]');
-    const basePrice = parseFloat(pizzaCard.querySelector('.text-red-600').textContent.replace(' €', '').replace(',', '.'));
-    const totalElement = pizzaCard.querySelector('.total-price');
-    
-    let total = basePrice;
-    
-    pizzaCard.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
-        total += parseFloat(checkbox.dataset.price);
-    });
-    
-    totalElement.textContent = total.toFixed(2).replace('.', ',') + ' €';
-}
-
-// DOMContentLoaded and turbo:load
-document.addEventListener('DOMContentLoaded', initializePizzaPage);
-document.addEventListener('turbo:load', initializePizzaPage);
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', initializePage);
 </script>
 {% endblock %}
